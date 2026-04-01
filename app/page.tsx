@@ -1,65 +1,152 @@
-import Image from "next/image";
+import { MultiLineStatCard } from "@/components/multi-line-stat-card";
+import { StatCard } from "@/components/stat-card";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="min-h-screen bg-linear-to-br from-slate-50 to-purple-50/30 p-6">
+      {/* Header */}
+      <header className="mb-6 flex items-center justify-between">
+        <h1 className="text-lg font-medium">วันอังคารที่ 17 มีนาคม 2569</h1>
+        <Button
+          // onClick={toggleLoading}
+          variant="outline"
+          size="sm"
+          className="text-primary bg-primary/10 hover:bg-primary/20 focus-visible:ring-primary/50 active:bg-primary/30"
+        >
+          Reload Data
+        </Button>
+      </header>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Row 1 - Main Stats with Details */}
+
+        <>
+          <StatCard
+            mainValue="1,661"
+            label="OPD วันนี้ (ครั้ง)"
+            monthlyStats="เดือนนี้ 12,299 คน / 17,857 ครั้ง"
+            variant="purple"
+            showDetails
+          />
+          <StatCard
+            mainValue="34"
+            label="ER วันนี้ (ครั้ง)"
+            monthlyStats="เดือนนี้ 1,706 คน / 1,935 ครั้ง"
+            variant="purple"
+            showDetails
+          />
+          <StatCard
+            mainValue="34/3"
+            label="IPD Admit/Discharge (คน)"
+            monthlyStats="เดือนนี้ Admit 749 / Discharge 725"
+            variant="purple"
+            showDetails
+          />
+          <StatCard
+            mainValue="7/5"
+            label="OR วันนี้(ครั้ง)"
+            monthlyStats="Major 264 ครั้ง / Minor 123 ครั้ง"
+            variant="pink"
+          />
+        </>
+
+        <>
+          <StatCard
+            mainValue="48"
+            label="กายภาพ วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 177 คน / 452ครั้ง"
+            variant="light-purple"
+          />
+          <StatCard
+            mainValue="41"
+            label="ศสม. วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 467 คน / 544 ครั้ง"
+            variant="light-purple"
+          />
+          <MultiLineStatCard
+            mainValue="82/8"
+            label="ทันตกรรม/ศสม. วันนี้(ครั้ง)"
+            lines={["เดือนนี้(คน/ครั้ง)", "รพ.1,067/1,201 ศสม.44/49"]}
+            variant="light-purple"
+          />
+          <MultiLineStatCard
+            mainValue="44/24"
+            label="แผนไทย/ศสม. วันนี้(ครั้ง)"
+            lines={["เดือนนี้(คน/ครั้ง)", "รพ.714/1,018 ศสม.488/781"]}
+            variant="light-purple"
+          />
+        </>
+
+        <>
+          <StatCard
+            mainValue="3"
+            label="ODS วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 22 คน / 22 ครั้ง"
+            variant="light-purple"
+          />
+          <StatCard
+            mainValue="51"
+            label="HD วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 127 คน / 717 ครั้ง"
+            variant="light-purple"
+          />
+          <MultiLineStatCard
+            mainValue="11/0"
+            label="X-ray วันนี้(ครั้ง) CT/MRI"
+            lines={["เดือนนี้(คน/ครั้ง)", "CT 323/445 MRI 30/54"]}
+            variant="light-purple"
+          />
+          <StatCard
+            mainValue="1,476"
+            label="Lab วันนี้(Request)"
+            monthlyStats="เดือนนี้ 7,168 คน / 20,618 Request"
+            variant="light-pink"
+          />
+        </>
+
+        <>
+          <StatCard
+            mainValue="38/0"
+            label="Refer in OPD/IPD วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ OPD 110 / IPD 12"
+            variant="pink"
+          />
+          <StatCard
+            mainValue="2/1"
+            label="Refer out OPD/IPD วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ OPD 120 / IPD 5"
+            variant="pink"
+          />
+          <StatCard
+            mainValue="0/0"
+            label="Refer back OPD/IPD วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ OPD 0 / IPD 0"
+            variant="pink"
+          />
+          <StatCard
+            mainValue="0"
+            label="ฉบยา วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 39 คน / 79 ครั้ง"
+            variant="pink"
+          />
+        </>
+
+        <>
+          <StatCard
+            mainValue="0/0"
+            label="Health Rider วันนี้(order/ส่งแล้ว)"
+            monthlyStats="เดือนนี้ 431 / 450"
+            variant="light-pink"
+          />
+          <StatCard
+            mainValue="273"
+            label="ใบสั่งยา วันนี้(ครั้ง)"
+            monthlyStats="เดือนนี้ 7,715 คน / 8,972 ครั้ง"
+            variant="light-pink"
+          />
+        </>
+      </div>
+    </main>
   );
 }
