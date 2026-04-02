@@ -1,6 +1,7 @@
 import { MultiLineStatCard } from "@/components/multi-line-stat-card";
 import { StatCard } from "@/components/stat-card";
 import { Button } from "@/components/ui/button";
+import { Stethoscope, StethoscopeIcon } from "lucide-react";
 
 export default function Home() {
   return (
@@ -26,6 +27,7 @@ export default function Home() {
             label="OPD วันนี้ (ครั้ง)"
             monthlyStats="เดือนนี้ 12,299 คน / 17,857 ครั้ง"
             variant="purple"
+            icon={Stethoscope}
             showDetails
           />
           <StatCard
@@ -33,6 +35,7 @@ export default function Home() {
             label="ER วันนี้ (ครั้ง)"
             monthlyStats="เดือนนี้ 1,706 คน / 1,935 ครั้ง"
             variant="purple"
+            icon={Stethoscope}
             showDetails
           />
           <StatCard
@@ -40,12 +43,14 @@ export default function Home() {
             label="IPD Admit/Discharge (คน)"
             monthlyStats="เดือนนี้ Admit 749 / Discharge 725"
             variant="purple"
+            icon={Stethoscope}
             showDetails
           />
           <StatCard
             mainValue="7/5"
             label="OR วันนี้(ครั้ง)"
             monthlyStats="Major 264 ครั้ง / Minor 123 ครั้ง"
+            icon={Stethoscope}
             variant="pink"
           />
         </>
@@ -56,12 +61,14 @@ export default function Home() {
             label="กายภาพ วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 177 คน / 452ครั้ง"
             variant="light-purple"
+            icon={Stethoscope}
           />
           <StatCard
             mainValue="41"
             label="ศสม. วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 467 คน / 544 ครั้ง"
             variant="light-purple"
+            icon={Stethoscope}
           />
           <MultiLineStatCard
             mainValue="82/8"
@@ -80,12 +87,14 @@ export default function Home() {
         <>
           <StatCard
             mainValue="3"
+            icon={Stethoscope}
             label="ODS วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 22 คน / 22 ครั้ง"
             variant="light-purple"
           />
           <StatCard
             mainValue="51"
+            icon={Stethoscope}
             label="HD วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 127 คน / 717 ครั้ง"
             variant="light-purple"
@@ -97,6 +106,7 @@ export default function Home() {
             variant="light-purple"
           />
           <StatCard
+            icon={Stethoscope}
             mainValue="1,476"
             label="Lab วันนี้(Request)"
             monthlyStats="เดือนนี้ 7,168 คน / 20,618 Request"
@@ -107,24 +117,28 @@ export default function Home() {
         <>
           <StatCard
             mainValue="38/0"
+            icon={Stethoscope}
             label="Refer in OPD/IPD วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ OPD 110 / IPD 12"
             variant="pink"
           />
           <StatCard
             mainValue="2/1"
+            icon={Stethoscope}
             label="Refer out OPD/IPD วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ OPD 120 / IPD 5"
             variant="pink"
           />
           <StatCard
             mainValue="0/0"
+            icon={Stethoscope}
             label="Refer back OPD/IPD วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ OPD 0 / IPD 0"
             variant="pink"
           />
           <StatCard
             mainValue="0"
+            icon={Stethoscope}
             label="ฉบยา วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 39 คน / 79 ครั้ง"
             variant="pink"
@@ -134,12 +148,14 @@ export default function Home() {
         <>
           <StatCard
             mainValue="0/0"
+            icon={Stethoscope}
             label="Health Rider วันนี้(order/ส่งแล้ว)"
             monthlyStats="เดือนนี้ 431 / 450"
             variant="light-pink"
           />
           <StatCard
             mainValue="273"
+            icon={Stethoscope}
             label="ใบสั่งยา วันนี้(ครั้ง)"
             monthlyStats="เดือนนี้ 7,715 คน / 8,972 ครั้ง"
             variant="light-pink"

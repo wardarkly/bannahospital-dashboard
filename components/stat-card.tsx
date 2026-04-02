@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "./ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
+import { LucideProps, type LucideIcon as Icon } from "lucide-react";
+import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 export type CardVariant = "purple" | "pink" | "light-purple" | "light-pink";
 
@@ -11,6 +13,7 @@ interface StatCardProps {
   variant?: CardVariant;
   showDetails?: boolean;
   className?: string;
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
 }
 
 const variantStyles: Record<CardVariant, string> = {
@@ -30,15 +33,23 @@ export function StatCard({
   variant = "light-purple",
   showDetails = false,
   className,
+  icon
 }: StatCardProps) {
+  const Icon = icon;
   return (
     <Card
       className={cn(
-        // "relative rounded-2xl p-5 min-h-[140px] flex flex-col justify-between transition-all hover:shadow-lg",
+        "hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1",
         variantStyles[variant],
         className,
       )}
     >
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-lg font-semibold">{label}</CardTitle>
+        <div className={`p-2 rounded-xl text-white ${variant}`}>
+          <Icon className="w-5 h-5" />
+        </div>
+      </CardHeader>
       <CardContent>
         <p className="text-4xl font-bold tracking-tight">{mainValue}</p>
         <p className="text-sm mt-1 opacity-90">{label}</p>
