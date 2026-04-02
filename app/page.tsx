@@ -12,7 +12,7 @@ export default function Home() {
           // onClick={toggleLoading}
           variant="outline"
           size="sm"
-          className="text-primary bg-primary/10 hover:bg-primary/20 focus-visible:ring-primary/50 active:bg-primary/30"
+          className="text-primary-foreground bg-primary"
         >
           Reload Data
         </Button>
@@ -20,7 +20,6 @@ export default function Home() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Row 1 - Main Stats with Details */}
-
         <>
           <StatCard
             mainValue="1,661"

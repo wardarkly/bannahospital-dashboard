@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "./ui/card";
 
 export type CardVariant = "purple" | "pink" | "light-purple" | "light-pink";
 
@@ -31,26 +32,26 @@ export function StatCard({
   className,
 }: StatCardProps) {
   return (
-    <div
+    <Card
       className={cn(
-        "relative rounded-2xl p-5 min-h-[140px] flex flex-col justify-between transition-all hover:shadow-lg",
+        // "relative rounded-2xl p-5 min-h-[140px] flex flex-col justify-between transition-all hover:shadow-lg",
         variantStyles[variant],
         className,
       )}
     >
-      <div>
+      <CardContent>
         <p className="text-4xl font-bold tracking-tight">{mainValue}</p>
         <p className="text-sm mt-1 opacity-90">{label}</p>
         <p className="text-xs mt-1 opacity-75">{monthlyStats}</p>
-      </div>
+      </CardContent>
 
       {showDetails && (
-        <div className="flex justify-end mt-3">
+        <div className="flex justify-end pr-4">
           <Button
             variant="ghost"
             size="sm"
             className={cn(
-              "text-xs px-4 py-1 h-7 rounded-full",
+              // "text-xs rounded-full",
               variant === "purple" || variant === "pink"
                 ? "bg-white/20 hover:bg-white/30 text-white"
                 : "bg-purple-200/50 hover:bg-purple-200/70 text-purple-700",
@@ -60,6 +61,6 @@ export function StatCard({
           </Button>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
