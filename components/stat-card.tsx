@@ -1,77 +1,64 @@
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "./ui/card";
-import { LucideProps, type LucideIcon as Icon } from "lucide-react";
+import { Card, CardContent } from "./ui/card";
+import { LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
+import Link from "next/link";
 
-export type CardVariant = "purple" | "pink" | "light-purple" | "light-pink";
+export type CardVariant = "core" | "transfer" | "diagnostics" | "specialty";
 
 interface StatCardProps {
   mainValue: string;
   label: string;
   monthlyStats: string;
   variant?: CardVariant;
-  showDetails?: boolean;
+  linkpath?: string;
   className?: string;
-  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  purple:
-    "bg-gradient-to-br from-purple-400 via-purple-300 to-pink-200 text-white",
-  pink: "bg-gradient-to-br from-pink-400 via-pink-300 to-pink-200 text-white",
-  "light-purple":
-    "bg-gradient-to-br from-purple-100 via-purple-50 to-pink-50 text-purple-600",
-  "light-pink":
-    "bg-gradient-to-br from-pink-100 via-pink-50 to-white text-pink-600",
+  core:
+    "bg-gradient-to-br from-sky-100 via-cyan-50 to-blue-50 text-sky-800",
+  transfer:
+    "bg-gradient-to-br from-amber-100 via-orange-50 to-rose-50 text-orange-800",
+  diagnostics:
+    "bg-gradient-to-br from-emerald-100 via-teal-50 to-cyan-50 text-emerald-700",
+  specialty:
+    "bg-gradient-to-br from-violet-100 via-fuchsia-50 to-pink-50 text-violet-700",
 };
 
 export function StatCard({
   mainValue,
   label,
   monthlyStats,
-  variant = "light-purple",
-  showDetails = false,
+  variant = "specialty",
+  linkpath = "/",
   className,
-  icon
+  icon,
 }: StatCardProps) {
   const Icon = icon;
   return (
-    <Card
-      className={cn(
-        "hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1",
-        variantStyles[variant],
-        className,
-      )}
-    >
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-semibold">{label}</CardTitle>
-        <div className={`p-2 rounded-xl text-white ${variant}`}>
-          <Icon className="w-5 h-5" />
-        </div>
-      </CardHeader>
-      <CardContent>
-        <p className="text-4xl font-bold tracking-tight">{mainValue}</p>
-        <p className="text-sm mt-1 opacity-90">{label}</p>
-        <p className="text-xs mt-1 opacity-75">{monthlyStats}</p>
-      </CardContent>
-
-      {showDetails && (
-        <div className="flex justify-end pr-4">
-          <Button
-            variant="ghost"
-            size="sm"
-            className={cn(
-              // "text-xs rounded-full",
-              variant === "purple" || variant === "pink"
-                ? "bg-white/20 hover:bg-white/30 text-white"
-                : "bg-purple-200/50 hover:bg-purple-200/70 text-purple-700",
-            )}
-          >
-            รายละเอียด
-          </Button>
-        </div>
-      )}
-    </Card>
+    <Link href={linkpath} passHref>
+      <Card
+        className={cn(
+          "hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1",
+          variantStyles[variant],
+          className,
+        )}
+      >
+        <CardContent
+          className={`p-6 flex justify-between items-start rounded-t`}
+        >
+          <div>
+            <h2 className="text-6xl font-bold mb-2">{mainValue}</h2>
+            <p className="text-lg font-medium mb-1">{label}</p>
+            <p className="text-sm">{monthlyStats}</p>
+          </div>
+          <Icon className="w-20 h-20 opacity-40" />
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
