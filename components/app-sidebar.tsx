@@ -11,148 +11,94 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavDocuments } from "@/components/nav-documents";
 import { NavMain } from "@/components/nav-main";
-import { NavSecondary } from "@/components/nav-secondary";
-import { NavUser } from "@/components/nav-user";
+import { SidebarApiStatus } from "@/components/sidebar-api-status";
 import {
-  Camera,
-  ChartColumnStacked,
-  Database,
-  Eclipse,
-  File,
-  FileDigit,
-  FileText,
-  Flag,
-  Folder,
-  Info,
+  Ambulance,
+  Bed,
+  Bone,
+  FlaskConical,
   LayoutDashboard,
-  LayoutList,
-  Search,
-  Settings,
-  Users,
+  Pill,
+  Siren,
+  Stethoscope,
 } from "lucide-react";
+import Image from "next/image";
+import {
+  IconBodyScan,
+  IconDental,
+  IconDisabled,
+  IconMassage,
+} from "@tabler/icons-react";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/",
       icon: LayoutDashboard,
     },
     {
-      title: "Lifecycle",
+      title: "OPD",
       url: "#",
-      icon: LayoutList,
+      icon: Stethoscope,
     },
     {
-      title: "Analytics",
+      title: "ER",
       url: "#",
-      icon: ChartColumnStacked,
+      icon: Siren,
     },
     {
-      title: "Projects",
+      title: "IPD",
       url: "#",
-      icon: Folder,
+      icon: Bed,
     },
     {
-      title: "Team",
+      title: "Refer Out",
       url: "#",
-      icon: Users,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: Camera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: Ambulance,
     },
     {
-      title: "Proposal",
-      icon: File,
+      title: "Lab",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: FlaskConical,
     },
     {
-      title: "Prompts",
-      icon: FileDigit,
+      title: "X-ray",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings,
+      icon: Bone,
     },
     {
-      title: "Get Help",
+      title: "CT",
       url: "#",
-      icon: Info,
+      icon: IconBodyScan,
     },
     {
-      title: "Search",
+      title: "ใบสั่งยา",
       url: "#",
-      icon: Search,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: Database,
+      icon: Pill,
     },
     {
-      name: "Reports",
+      title: "กายภาพ",
       url: "#",
-      icon: Flag,
+      icon: IconDisabled,
     },
     {
-      name: "Word Assistant",
+      title: "ทันตกรรม",
       url: "#",
-      icon: FileText,
+      icon: IconDental,
+    },
+    {
+      title: "แผนไทย",
+      url: "#",
+      icon: IconMassage,
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -161,8 +107,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               className="data-[slot=sidebar-menu-button]:p-1.5!"
             >
               <a href="#">
-                <Eclipse className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <Image
+                  src="/icon.png"
+                  width={40}
+                  height={40}
+                  alt="banna hospital logo"
+                />
+                <div className="flex flex-col items-start">
+                  <span className="text-base font-semibold">
+                    โรงพยาบาลบ้านนา
+                  </span>
+                  {/* <span className="text-base font-semibold">
+                    Banna Hospital
+                  </span> */}
+                </div>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -170,11 +128,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <SidebarApiStatus />
       </SidebarFooter>
     </Sidebar>
   );

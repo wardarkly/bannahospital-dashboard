@@ -8,6 +8,7 @@ import {
 } from "@tabler/icons-react";
 import {
   Ambulance,
+  CircleAlert,
   Bed,
   Bone,
   FlaskConical,
@@ -16,7 +17,9 @@ import {
   Stethoscope,
 } from "lucide-react";
 
-async function getOverviewData() {
+type OverviewResponse = Awaited<ReturnType<typeof fetchOverviewData>>;
+
+async function fetchOverviewData() {
   const res = await fetch("http://localhost:3000/api/v1/dashboard/overview", {
     cache: "no-store",
   });
@@ -28,15 +31,70 @@ async function getOverviewData() {
 }
 
 export default async function Home() {
+  const todayLabel = new Intl.DateTimeFormat("th-TH-u-ca-buddhist", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "Asia/Bangkok",
+  }).format(new Date());
+
+  let overview: OverviewResponse | null = null;
+
+  try {
+    overview = await fetchOverviewData();
+  } catch (error) {
+    const detail =
+      error instanceof Error ? error.message : "Unknown connection error";
+
+    return (
+      <main className="bg-linear-to-br from-slate-50 to-purple-50/30 p-6">
+        <header className="mb-6 flex items-center justify-between">
+          <h1 className="text-lg font-medium">{todayLabel}</h1>
+          <ReloadDataButton />
+        </header>
+
+        <section className="flex min-h-[calc(100vh-10rem)] items-center justify-center">
+          <div className="w-full max-w-2xl rounded-3xl border border-rose-200 bg-white/90 p-8 shadow-sm">
+            <div className="mb-5 flex items-center gap-4 text-rose-600">
+              <div className="rounded-2xl bg-rose-50 p-3">
+                <CircleAlert className="size-8" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold text-foreground">
+                  API ไม่พร้อมใช้งาน
+                </h2>
+                <p className="text-sm text-muted-foreground">
+                  ไม่สามารถโหลดข้อมูล dashboard ได้ในขณะนี้
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3 rounded-2xl bg-rose-50/70 p-4 text-sm">
+              {/* <p className="font-medium text-foreground">
+                ระบบจะแสดงหน้านี้แทนเพื่อป้องกัน error จากการดึงข้อมูลไม่สำเร็จ
+              </p> */}
+              <p className="text-muted-foreground">
+                กรุณาตรวจสอบการเชื่อมต่อ API หรือกดปุ่ม <span className="font-medium text-foreground">Reload Data</span> เพื่อลองใหม่
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Error detail: {detail}
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
   const {
-    data: { opd, er, ipd, referOut, lab, xray, phy, dent, ttm },
-  } = await getOverviewData();
-  console.log(opd.patient_today);
+    data: { opd, er, ipd, referOut, lab, xray, phy, dent, ttm, med },
+  } = overview;
   return (
-    <main className="min-h-screen bg-linear-to-br from-slate-50 to-purple-50/30 p-6">
+    <main className="bg-linear-to-br from-slate-50 to-purple-50/30 p-6">
       {/* Header */}
       <header className="mb-6 flex items-center justify-between">
-        <h1 className="text-lg font-medium">วันอังคารที่ 17 มีนาคม 2569</h1>
+        <h1 className="text-lg font-medium">{todayLabel}</h1>
         <ReloadDataButton />
       </header>
 
@@ -58,14 +116,22 @@ export default async function Home() {
           icon={Siren}
         />
         <StatCard
-          mainValue={ipd.admit_today.toLocaleString() + " / " + ipd.discharge_today.toLocaleString()}
+          mainValue={
+            ipd.admit_today.toLocaleString() +
+            " / " +
+            ipd.discharge_today.toLocaleString()
+          }
           label="IPD Admit / Discharge (คน)"
           monthlyStats={`เดือนนี้ Admit ${ipd.admit_month.toLocaleString()} / Discharge ${ipd.discharge_month.toLocaleString()}`}
           variant="core"
           icon={Bed}
         />
         <StatCard
-          mainValue={referOut.opd_today.toLocaleString() + " / " + referOut.ipd_today.toLocaleString()}
+          mainValue={
+            referOut.opd_today.toLocaleString() +
+            " / " +
+            referOut.ipd_today.toLocaleString()
+          }
           icon={Ambulance}
           label="Refer out OPD/IPD วันนี้(ครั้ง)"
           monthlyStats={`เดือนนี้ OPD ${referOut.opd_month.toLocaleString()} / IPD ${referOut.ipd_month.toLocaleString()}`}
@@ -94,13 +160,13 @@ export default async function Home() {
           variant="diagnostics"
           icon={IconBodyScan}
         />
-        {/* <StatCard
-          mainValue="273"
+        <StatCard
+          mainValue={med.order_today.toLocaleString()}
           icon={Pill}
           label="ใบสั่งยา วันนี้(ครั้ง)"
-          monthlyStats="เดือนนี้ 7,715 คน / 8,972 ครั้ง"
+          monthlyStats={`เดือนนี้ ${med.patient_month.toLocaleString()} คน / ${med.order_month.toLocaleString()} ครั้ง`}
           variant="diagnostics"
-        /> */}
+        />
 
         {/* Row 3 - Specialty clinics */}
         <StatCard
